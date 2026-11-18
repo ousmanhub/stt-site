@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMART TECHNOLOGIES TCHAD — Applications, réseaux, agriculture intelligente</title>
+<meta name="description" content="SMART TECHNOLOGIES TCHAD conçoit, déploie et maintient des applications, des réseaux informatiques et des solutions d'agriculture intelligente pour les organisations tchadiennes.">
+<meta name="theme-color" content="#0B0F0D">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Archivo';src:url('fonts/archivo.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Grotesk';src:url('fonts/grotesk.woff2') format('woff2');font-weight:500;font-display:swap}
+
+:root{
+  --canvas:#0B0F0D; --surface:#121815; --surface-2:#17201C; --line:#22302A;
+  --ink:#F3EFE7; --ink-soft:#B9C7C0; --ink-mute:#8FA39B;
+  --accent:#1FB985; --accent-deep:#0E8C63;
+  --display:'Archivo',system-ui,sans-serif; --text:'Grotesk',system-ui,sans-serif;
+  --pad:clamp(20px,5vw,64px); --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--canvas);color:var(--ink);font-family:var(--text);font-size:16px;
+  line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.12;letter-spacing:-.01em}
+
+/* ---------- header ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:blur(14px);
+  background:rgba(11,15,13,.82);border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled{border-bottom-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;height:72px}
+.nav__logo img{height:26px;width:auto}
+.nav__links{display:flex;gap:28px;align-items:center}
+.nav__links a{font-size:13.5px;color:var(--ink-soft);transition:color .2s}
+.nav__links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:99px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--ink-mute);font-family:var(--text);
+  font-size:11px;letter-spacing:.1em;padding:6px 12px;cursor:pointer;transition:.2s}
+.lang button.on{background:var(--accent);color:#04241A}
+.burger{display:none;background:none;border:0;color:var(--ink);cursor:pointer;padding:8px}
+@media(max-width:880px){
+  .nav__links{display:none}
+  .burger{display:block}
+  .nav__links.open{display:flex;position:fixed;inset:72px 0 auto 0;flex-direction:column;
+    background:var(--surface);padding:24px var(--pad);gap:18px;border-bottom:1px solid var(--line)}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:170px 0 96px;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-30%;right:-10%;width:760px;height:760px;
+  background:radial-gradient(circle,rgba(31,185,133,.13),transparent 62%);pointer-events:none}
+.hero__rule{width:64px;height:3px;background:var(--accent);margin-bottom:28px}
+.hero h1{font-size:clamp(38px,6.4vw,74px);max-width:16ch}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{margin-top:26px;max-width:56ch;color:var(--ink-soft);font-size:clamp(15px,1.6vw,18px)}
+.hero__cta{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:99px;
+  font-size:14px;letter-spacing:.02em;transition:transform .2s,background .2s,border-color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn--solid{background:var(--accent);color:#04241A;font-weight:500}
+.btn--ghost{border:1px solid var(--line);color:var(--ink-soft)}
+.btn--ghost:hover{border-color:var(--accent);color:var(--ink)}
+.band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:72px}
+.band div{background:var(--surface);padding:22px 20px}
+.band b{display:block;font-family:var(--display);font-size:14px;letter-spacing:.04em}
+.band span{font-size:11.5px;color:var(--ink-mute);display:block;margin-top:4px}
+@media(max-width:760px){.band{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:96px}
+.sec{padding:96px 0}
+.sec__head{max-width:62ch;margin-bottom:54px}
+.sec__head h2{font-size:clamp(28px,3.6vw,44px);margin-top:14px}
+.sec__head p{color:var(--ink-soft);margin-top:16px}
+
+/* about */
+.about{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
+.chip{border:1px solid var(--line);border-radius:99px;padding:7px 15px;font-size:12.5px;color:var(--ink-soft)}
+.about__side{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:30px}
+.about__side h3{font-size:15px;margin-bottom:16px;letter-spacing:.02em}
+.about__side li{list-style:none;display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);
+  font-size:13.5px;color:var(--ink-soft)}
+.about__side li:last-child{border:0}
+.about__side svg{flex:0 0 16px;color:var(--accent);margin-top:3px}
+@media(max-width:880px){.about{grid-template-columns:1fr;gap:32px}}
+
+/* poles */
+.pole{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;
+  padding:44px 0;border-top:1px solid var(--line)}
+.pole:last-child{border-bottom:1px solid var(--line)}
+.pole--flip .pole__art{order:2}
+.pole__num{font-family:var(--display);font-size:12px;color:var(--accent);letter-spacing:.14em}
+.pole h3{font-size:clamp(22px,2.6vw,30px);margin:10px 0 14px}
+.pole p{color:var(--ink-soft);font-size:15px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.pill{font-size:11.5px;letter-spacing:.05em;color:var(--accent);background:rgba(31,185,133,.08);
+  border:1px solid rgba(31,185,133,.22);border-radius:99px;padding:5px 12px}
+.pole__art{background:var(--surface);border:1px solid var(--line);border-radius:22px;
+  padding:36px;display:flex;align-items:center;justify-content:center;min-height:280px}
+.pole__art svg{width:100%;max-width:230px;color:var(--accent);stroke-width:1.4}
+@media(max-width:880px){
+  .pole{grid-template-columns:1fr;gap:28px}
+  .pole--flip .pole__art{order:0}
+}
+
+/* audiences */
+.aud{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.aud article{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px 22px;
+  transition:border-color .25s,transform .25s}
+.aud article:hover{border-color:rgba(31,185,133,.4);transform:translateY(-3px)}
+.aud h3{font-size:15px;margin-bottom:8px}
+.aud p{font-size:13px;color:var(--ink-mute);line-height:1.55}
+@media(max-width:900px){.aud{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.aud{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:stretch}
+form{display:grid;gap:14px}
+label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute)}
+input,textarea,select{width:100%;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:13px 16px;color:var(--ink);font-family:var(--text);font-size:14px;
+  transition:border-color .2s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+textarea{resize:vertical;min-height:110px}
+.field{display:grid;gap:7px}
+.hint{font-size:12px;color:var(--ink-mute);margin-top:10px}
+.info{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:32px;
+  display:flex;flex-direction:column;justify-content:center}
+.info dl{display:grid;gap:20px}
+.info dt{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+.info dd{margin-top:5px;font-size:15px}
+.info a{border-bottom:1px solid rgba(31,185,133,.4);transition:color .2s}
+.info a:hover{color:var(--accent)}
+@media(max-width:880px){.contact{grid-template-columns:1fr;gap:32px}}
+
+/* faq */
+.faq details{border-top:1px solid var(--line);padding:20px 0}
+.faq details:last-of-type{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;list-style:none;font-size:16px;display:flex;justify-content:space-between;
+  gap:20px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';color:var(--accent);font-size:20px;transition:transform .25s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--ink-soft);font-size:14.5px;margin-top:14px;max-width:70ch}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:56px 0 34px;margin-top:40px}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px}
+.foot h4{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:14px}
+.foot a,.foot p{font-size:13.5px;color:var(--ink-soft);display:block;padding:4px 0}
+.foot a:hover{color:var(--accent)}
+.foot__brand img{height:30px;margin-bottom:16px}
+.foot__brand p{max-width:34ch;font-size:13px;color:var(--ink-mute);line-height:1.6}
+.legal{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);display:flex;
+  justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-mute);
+  letter-spacing:.04em}
+@media(max-width:880px){.foot{grid-template-columns:1fr 1fr;gap:28px}}
+
+/* reveal */
+.rv{opacity:1;transform:none}
+html.js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+html.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html.js .rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <a href="#top" class="nav__logo" aria-label="SMART TECHNOLOGIES TCHAD">
+      <img src="assets/logo.svg" alt="SMART TECHNOLOGIES TCHAD">
+    </a>
+    <nav class="nav__links" id="menu">
+      <a href="#apropos" data-i18n="nav.about"></a>
+      <a href="#poles" data-i18n="nav.poles"></a>
+      <a href="#public" data-i18n="nav.who"></a>
+      <a href="#contact" data-i18n="nav.contact"></a>
+      <div class="lang">
+        <button id="fr" class="on" type="button">FR</button>
+        <button id="en" type="button">EN</button>
+      </div>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu" type="button">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M3 6h16M3 11h16M3 16h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__rule"></div>
+      <h1 data-i18n="hero.title"></h1>
+      <p data-i18n="hero.sub"></p>
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--solid" data-i18n="hero.cta1"></a>
+        <a href="#poles" class="btn btn--ghost" data-i18n="hero.cta2"></a>
+      </div>
+      <div class="band rv">
+        <div><b data-i18n="band.1t"></b><span data-i18n="band.1s"></span></div>
+        <div><b data-i18n="band.2t"></b><span data-i18n="band.2s"></span></div>
+        <div><b data-i18n="band.3t"></b><span data-i18n="band.3s"></span></div>
+        <div><b data-i18n="band.4t"></b><span data-i18n="band.4s"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="apropos">
+    <div class="wrap">
+      <div class="about">
+        <div class="rv">
+          <div class="eyebrow" data-i18n="about.eyebrow"></div>
+          <h2 data-i18n="about.title"></h2>
+          <p style="color:var(--ink-soft);margin-top:18px" data-i18n="about.p1"></p>
+          <p style="color:var(--ink-soft);margin-top:14px" data-i18n="about.p2"></p>
+          <div class="chips">
+            <span class="chip" data-i18n="chips.1"></span>
+            <span class="chip" data-i18n="chips.2"></span>
+            <span class="chip" data-i18n="chips.3"></span>
+            <span class="chip" data-i18n="chips.4"></span>
+          </div>
+        </div>
+        <aside class="about__side rv">
+          <h3 data-i18n="about.side"></h3>
+          <ul>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8.5l4 4 8-9"/></svg><span data-i18n="about.v2"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8.5l4 4 8-9"/></svg><span data-i18n="about.v3"></span></li>
+            <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8.5l4 4 8-9"/></svg><span data-i18n="about.v4"></span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="poles" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec__head rv">
+        <div class="eyebrow" data-i18n="poles.eyebrow"></div>
+        <h2 data-i18n="poles.title"></h2>
+      </div>
+
+      <article class="pole rv">
+        <div class="pole__art">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="14" y="20" width="92" height="68" rx="6"/>
+            <path d="M14 34h92"/>
+            <circle cx="22" cy="27" r="1.8" fill="currentColor" stroke="none"/>
+            <circle cx="29" cy="27" r="1.8" fill="currentColor" stroke="none"/>
+            <path d="M26 48l-7 8 7 8M42 48l7 8-7 8M36 68l8-30"/>
+            <path d="M64 48h30M64 58h22M64 68h26"/>
+            <path d="M40 100h40"/>
+          </svg>
+        </div>
+        <div>
+          <div class="pole__num">01</div>
+          <h3 data-i18n="pole1.title"></h3>
+          <p data-i18n="pole1.p"></p>
+          <div class="pills">
+            <span class="pill" data-i18n="pole1.p1"></span>
+            <span class="pill" data-i18n="pole1.p2"></span>
+            <span class="pill" data-i18n="pole1.p3"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="pole pole--flip rv">
+        <div class="pole__art">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="44" y="44" width="32" height="24" rx="4"/>
+            <path d="M52 44V32M68 44V32M52 68v12M68 68v12"/>
+            <circle cx="26" cy="26" r="9"/><circle cx="94" cy="26" r="9"/>
+            <circle cx="26" cy="94" r="9"/><circle cx="94" cy="94" r="9"/>
+            <path d="M35 31h18M67 31h18M35 89h18M67 89h18M26 35v18M26 67v18M94 35v18M94 67v18"/>
+          </svg>
+        </div>
+        <div>
+          <div class="pole__num">02</div>
+          <h3 data-i18n="pole2.title"></h3>
+          <p data-i18n="pole2.p"></p>
+          <div class="pills">
+            <span class="pill" data-i18n="pole2.p1"></span>
+            <span class="pill" data-i18n="pole2.p2"></span>
+            <span class="pill" data-i18n="pole2.p3"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="pole rv">
+        <div class="pole__art">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M60 100V56"/>
+            <path d="M60 56c0-14-10-24-24-24 0 14 10 24 24 24z"/>
+            <path d="M60 66c0-14 10-24 24-24 0 14-10 24-24 24z"/>
+            <path d="M18 100h84"/>
+            <path d="M32 34l-6-6M88 34l6-6M60 26V16" stroke-dasharray="3 4"/>
+            <circle cx="60" cy="12" r="3"/>
+            <path d="M24 108h20M56 108h20M88 108h10" stroke-dasharray="2 5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="pole__num">03</div>
+          <h3 data-i18n="pole3.title"></h3>
+          <p data-i18n="pole3.p"></p>
+          <div class="pills">
+            <span class="pill" data-i18n="pole3.p1"></span>
+            <span class="pill" data-i18n="pole3.p2"></span>
+            <span class="pill" data-i18n="pole3.p3"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="pole pole--flip rv">
+        <div class="pole__art">
+          <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="12" y="26" width="52" height="66" rx="4"/>
+            <path d="M22 40h32M22 52h26M22 64h30M22 76h18"/>
+            <path d="M74 46h34M74 62h26M74 78h30" stroke-dasharray="4 5"/>
+            <path d="M74 30l14 8-14 8" />
+            <rect x="80" y="86" width="28" height="18" rx="3"/>
+            <path d="M86 95h16"/>
+          </svg>
+        </div>
+        <div>
+          <div class="pole__num">04</div>
+          <h3 data-i18n="pole4.title"></h3>
+          <p data-i18n="pole4.p"></p>
+          <div class="pills">
+            <span class="pill" data-i18n="pole4.p1"></span>
+            <span class="pill" data-i18n="pole4.p2"></span>
+            <span class="pill" data-i18n="pole4.p3"></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="public">
+    <div class="wrap">
+      <div class="sec__head rv">
+        <div class="eyebrow" data-i18n="who.eyebrow"></div>
+        <h2 data-i18n="who.title"></h2>
+      </div>
+      <div class="aud">
+        <article class="rv"><h3 data-i18n="who.1t"></h3><p data-i18n="who.1p"></p></article>
+        <article class="rv"><h3 data-i18n="who.2t"></h3><p data-i18n="who.2p"></p></article>
+        <article class="rv"><h3 data-i18n="who.3t"></h3><p data-i18n="who.3p"></p></article>
+        <article class="rv"><h3 data-i18n="who.4t"></h3><p data-i18n="who.4p"></p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact" style="padding-top:0">
+    <div class="wrap">
+      <div class="contact">
+        <div class="rv">
+          <div class="eyebrow" data-i18n="contact.eyebrow"></div>
+          <h2 style="font-size:clamp(28px,3.6vw,44px);margin-top:14px" data-i18n="contact.title"></h2>
+          <p style="color:var(--ink-soft);margin-top:16px;max-width:46ch" data-i18n="contact.sub"></p>
+          <form id="form" style="margin-top:30px">
+            <div class="field">
+              <label for="n" data-i18n="form.name"></label>
+              <input id="n" name="name" required data-i18n-ph="form.name_ph">
+            </div>
+            <div class="field">
+              <label for="o" data-i18n="form.org"></label>
+              <input id="o" name="org" data-i18n-ph="form.org_ph">
+            </div>
+            <div class="field">
+              <label for="e" data-i18n="form.mail"></label>
+              <input id="e" name="email" type="email" required data-i18n-ph="form.mail_ph">
+            </div>
+            <div class="field">
+              <label for="s" data-i18n="form.subject"></label>
+              <select id="s" name="subject">
+                <option data-i18n="form.s1"></option>
+                <option data-i18n="form.s2"></option>
+                <option data-i18n="form.s3"></option>
+                <option data-i18n="form.s4"></option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="m" data-i18n="form.msg"></label>
+              <textarea id="m" name="message" required data-i18n-ph="form.msg_ph"></textarea>
+            </div>
+            <button class="btn btn--solid" type="submit" style="justify-content:center" data-i18n="form.send"></button>
+            <p class="hint" data-i18n="form.hint"></p>
+          </form>
+        </div>
+        <aside class="info rv">
+          <dl>
+            <div><dt data-i18n="info.addr"></dt><dd>Ridina, N'Djamena — Tchad</dd></div>
+            <div><dt data-i18n="info.tel"></dt><dd><a href="tel:+23564679587">+235 64 67 95 87</a></dd></div>
+            <div><dt data-i18n="info.mail"></dt><dd><a href="mailto:contact@sttworks.com">contact@sttworks.com</a></dd></div>
+            <div><dt data-i18n="info.legal"></dt><dd style="font-size:13.5px;color:var(--ink-soft)">
+              NIF 9069867 b<br>RCCM TD-NDJ-OI-2026 AIO-03781</dd></div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec__head rv">
+        <div class="eyebrow" data-i18n="faq.eyebrow"></div>
+        <h2 data-i18n="faq.title"></h2>
+      </div>
+      <div class="rv">
+        <details><summary data-i18n="faq.q1"></summary><p data-i18n="faq.a1"></p></details>
+        <details><summary data-i18n="faq.q2"></summary><p data-i18n="faq.a2"></p></details>
+        <details><summary data-i18n="faq.q4"></summary><p data-i18n="faq.a4"></p></details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="foot__brand">
+        <img src="assets/logo.svg" alt="SMART TECHNOLOGIES TCHAD">
+        <p data-i18n="foot.tag"></p>
+      </div>
+      <div>
+        <h4 data-i18n="foot.nav"></h4>
+        <a href="#apropos" data-i18n="nav.about"></a>
+        <a href="#poles" data-i18n="nav.poles"></a>
+        <a href="#public" data-i18n="nav.who"></a>
+        <a href="#contact" data-i18n="nav.contact"></a>
+      </div>
+      <div>
+        <h4 data-i18n="foot.poles"></h4>
+        <a href="#poles" data-i18n="pole1.title"></a>
+        <a href="#poles" data-i18n="pole2.title"></a>
+        <a href="#poles" data-i18n="pole3.title"></a>
+        <a href="#poles" data-i18n="pole4.title"></a>
+      </div>
+      <div>
+        <h4 data-i18n="foot.contact"></h4>
+        <a href="tel:+23564679587">+235 64 67 95 87</a>
+        <a href="mailto:contact@sttworks.com">contact@sttworks.com</a>
+        <p style="color:var(--ink-mute)">Ridina, N'Djamena</p>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© <span id="yr"></span> SMART TECHNOLOGIES TCHAD</span>
+      <span data-i18n="foot.legal"></span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
